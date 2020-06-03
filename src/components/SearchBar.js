@@ -1,11 +1,21 @@
 import React from 'react';
+import ResultsPerPage from './ResultsPerPage';
 
 class SearchBar extends React.Component {
-  state = { term: '' };
+  state = { term: '', resultsPerPage: 10 };
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state.term);
+    this.props.onSubmit({
+      term: this.state.term,
+      resultsPerPage: this.state.resultsPerPage,
+      currentPage: 1
+    });
+  };
+
+  onChangeResultsPerPage = (resultsPerPage) => {
+    this.setState({ resultsPerPage });
+    console.log(resultsPerPage);
   };
 
   render() {
@@ -21,6 +31,7 @@ class SearchBar extends React.Component {
             />
           </div>
         </form>
+        <ResultsPerPage onChangeResultsPerPage={this.onChangeResultsPerPage} />
       </div>
     );
   }
